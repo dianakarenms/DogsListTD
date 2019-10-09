@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Dogs List</string>
+    <string name="dog_detail_title">Item Detail</string>
+
+    <string name="empty_list_title">Empty list!</string>
+    <string name="empty_list_subtitle">You have no dogs at this moment</string>
+
+    <string name="add_new_dog_title">Add New Dog</string>
+    <string name="add_new_dog_pick_label">Pick your dog\'s photo</string>
+    <string name="add_new_dog_name_hint">Dog´s Name</string>
+    <string name="add_new_dog_save">Save</string>
+</resources>
