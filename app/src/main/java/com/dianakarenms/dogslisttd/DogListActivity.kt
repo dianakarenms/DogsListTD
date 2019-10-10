@@ -1,5 +1,6 @@
 package com.dianakarenms.dogslisttd
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -20,23 +21,24 @@ import com.dianakarenms.models.Dog
 import com.dianakarenms.utils.PictureTools
 import com.dianakarenms.views.SquareImageView
 import kotlinx.android.synthetic.main.activity_dogs_list.toolbar
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 /**
  * An activity representing a list of Pings. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a [ItemDetailActivity] representing
+ * lead to a [DogDetailActivity] representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-class DogsListActivity : AppCompatActivity() {
+class DogListActivity : AppCompatActivity() {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private val ADD_NEW_DOG = 101
-    private lateinit var viewModel: SharedDogsViewModel
+    private lateinit var viewModel: DogListViewModel
     private var twoPane: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,12 +56,12 @@ class DogsListActivity : AppCompatActivity() {
             twoPane = true
         }
 
-        viewModel = ViewModelProviders.of(this@DogsListActivity).get(SharedDogsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this@DogListActivity).get(DogListViewModel::class.java)
 
         setupRecyclerView(item_list)
 
-        fab.setOnClickListener { view ->
-            val intent = Intent(this@DogsListActivity, AddNewDogActivity::class.java)
+        fab.onClick {
+            val intent = Intent(this@DogListActivity, AddNewDogActivity::class.java)
             startActivityForResult(intent, ADD_NEW_DOG)
         }
 
@@ -68,11 +70,11 @@ class DogsListActivity : AppCompatActivity() {
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val adapter = SimpleItemRecyclerViewAdapter(this, twoPane)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this@DogsListActivity)
+        recyclerView.layoutManager = LinearLayoutManager(this@DogListActivity)
         recyclerView.addItemDecoration(
 
             DividerItemDecoration(
-                this@DogsListActivity,
+                this@DogListActivity,
                 DividerItemDecoration.VERTICAL
             )
         )
@@ -91,13 +93,13 @@ class DogsListActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ADD_NEW_DOG) {
+        if (resultCode == Activity.RESULT_OK && requestCode == ADD_NEW_DOG) {
             viewModel.addNew(data?.getSerializableExtra("dog") as Dog)
         }
     }
 
     class SimpleItemRecyclerViewAdapter(
-        private val parentActivity: DogsListActivity,
+        private val parentActivity: DogListActivity,
         private val twoPane: Boolean
     ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
@@ -109,9 +111,9 @@ class DogsListActivity : AppCompatActivity() {
             onClickListener = View.OnClickListener { v ->
                 val item = v.tag as Dog
                 if (twoPane) {
-                    val fragment = ItemDetailFragment().apply {
+                    val fragment = DogDetailFragment().apply {
                         arguments = Bundle().apply {
-                            putString(ItemDetailFragment.ARG_DOG, item.name)
+                            putString(DogDetailFragment.ARG_DOG, item.name)
                         }
                     }
                     parentActivity.supportFragmentManager
@@ -119,8 +121,8 @@ class DogsListActivity : AppCompatActivity() {
                         .replace(R.id.item_detail_container, fragment)
                         .commit()
                 } else {
-                    val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
-                        putExtra(ItemDetailFragment.ARG_DOG, item)
+                    val intent = Intent(v.context, DogDetailActivity::class.java).apply {
+                        putExtra(DogDetailFragment.ARG_DOG, item)
                     }
                     v.context.startActivity(intent)
                 }
@@ -135,12 +137,12 @@ class DogsListActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
-
-            if (item.imageUri.isNotEmpty()) {
-                val bitmap = PictureTools.decodeSampledBitmapFromUri(item.imageUri, 500, 500)
-                holder.imageView.setImageBitmap(bitmap)
+            val bitmap = item?.imageUri?.let { it ->
+                PictureTools.decodeSampledBitmapFromUri(
+                    it, 500, 500)
             }
 
+            holder.imageView.setImageBitmap(bitmap)
             holder.contentView.text = item.name
 
             with(holder.itemView) {
@@ -154,8 +156,8 @@ class DogsListActivity : AppCompatActivity() {
         }
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val contentView: TextView = view.content
-            val imageView: SquareImageView = view.imageView
+            val contentView: TextView = view.item_list_content_name
+            val imageView: SquareImageView = view.item_list_content_image
         }
 
         internal fun setDogs(dogsList: ArrayList<Dog>) {

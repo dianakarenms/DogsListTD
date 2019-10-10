@@ -5,7 +5,7 @@
     android:name="com.dianakarenms.dogslisttd.ItemListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DogsListActivity" >
+    tools:context=".DogListActivity" >
 
     <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/item_list"
@@ -15,7 +15,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".DogsListActivity"
+    tools:context=".DogListActivity"
     tools:listitem="@layout/item_list_content" />
 
     <include android:id="@+id/empty_list"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".DogsListActivity">
+    tools:context=".DogListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -49,41 +49,54 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_new_dog_pick_label"
-                app:layout_constraintBottom_toTopOf="@+id/addNewDogPhoto"
+                app:layout_constraintBottom_toTopOf="@+id/add_new_dog_photo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.94" />
 
+
             <com.dianakarenms.views.SquareImageButton
-                android:id="@+id/addNewDogPhoto"
+                android:id="@+id/add_new_dog_photo"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:background="@android:color/transparent"
-                app:layout_constraintBottom_toTopOf="@+id/addNewDogNameEdit"
+                app:layout_constraintBottom_toTopOf="@+id/text_input_layout_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.81"
-                app:srcCompat="@drawable/ic_pick_photo" />
+                app:srcCompat="@drawable/ic_add_picture" />
 
-            <EditText
-                android:id="@+id/addNewDogNameEdit"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
                 android:hint="@string/add_new_dog_name_hint"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.56" />
+                app:layout_constraintVertical_bias="0.56" >
+
+                <EditText
+                    android:id="@+id/add_new_dog_name_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:inputType="textCapSentences"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textStyle="bold"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

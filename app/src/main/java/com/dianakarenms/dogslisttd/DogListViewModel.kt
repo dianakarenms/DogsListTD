@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dianakarenms.models.Dog
 
-class SharedDogsViewModel : ViewModel() {
+class DogListViewModel : ViewModel() {
     val dogsList = MutableLiveData<ArrayList<Dog>>()
 
     init {

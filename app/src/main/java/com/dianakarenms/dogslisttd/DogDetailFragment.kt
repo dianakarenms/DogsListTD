@@ -6,16 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dianakarenms.models.Dog
-import kotlinx.android.synthetic.main.activity_item_detail.*
+import com.dianakarenms.utils.PictureTools
+import kotlinx.android.synthetic.main.activity_dog_details.*
+import kotlinx.android.synthetic.main.activity_dog_details.view.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 
 /**
  * A fragment representing a single Item detail screen.
- * This fragment is either contained in a [DogsListActivity]
- * in two-pane mode (on tablets) or a [ItemDetailActivity]
+ * This fragment is either contained in a [DogListActivity]
+ * in two-pane mode (on tablets) or a [DogDetailActivity]
  * on handsets.
  */
-class ItemDetailFragment : Fragment() {
+class DogDetailFragment : Fragment() {
 
     /**
      * The dummy content this fragment is presenting.
@@ -31,7 +33,13 @@ class ItemDetailFragment : Fragment() {
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
                 item = it.getSerializable(ARG_DOG) as Dog?
-                activity?.toolbar_layout?.title = item?.name
+                activity?.dog_details_toolbar?.title = item?.name
+
+                val bitmap = item?.imageUri?.let { it1 ->
+                    PictureTools.decodeSampledBitmapFromUri(
+                        it1, 500, 500)
+                }
+                activity?.dog_details_image?.setImageBitmap(bitmap)
             }
         }
     }
@@ -44,7 +52,7 @@ class ItemDetailFragment : Fragment() {
 
         // Show the dummy content as text in a TextView.
         item?.let {
-            rootView.item_detail.text = it.name
+            rootView.item_detail.text = "${it.name}'s further details of its being"
         }
 
         return rootView
