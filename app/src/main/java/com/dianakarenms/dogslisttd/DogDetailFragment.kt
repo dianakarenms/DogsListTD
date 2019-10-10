@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dianakarenms.models.Dog
+import com.dianakarenms.data.models.Dog
 import com.dianakarenms.utils.PictureTools
 import kotlinx.android.synthetic.main.activity_dog_details.*
-import kotlinx.android.synthetic.main.activity_dog_details.view.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 
 /**

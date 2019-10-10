@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.item_list_content.view.*
 import kotlinx.android.synthetic.main.item_list.*
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dianakarenms.models.Dog
+import com.dianakarenms.data.models.Dog
+import com.dianakarenms.data.viewmodels.ViewModelFactory
 import com.dianakarenms.utils.PictureTools
 import com.dianakarenms.views.SquareImageView
 import kotlinx.android.synthetic.main.activity_dogs_list.toolbar
@@ -56,7 +57,7 @@ class DogListActivity : AppCompatActivity() {
             twoPane = true
         }
 
-        viewModel = ViewModelProviders.of(this@DogListActivity).get(DogListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, ViewModelFactory(this@DogListActivity)).get(DogListViewModel::class.java)
 
         setupRecyclerView(item_list)
 

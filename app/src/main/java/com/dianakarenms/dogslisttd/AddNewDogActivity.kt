@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
-import com.dianakarenms.models.Dog
+import com.dianakarenms.data.models.Dog
 import com.dianakarenms.utils.PictureTools
 import com.dianakarenms.utils.PictureTools.Companion.REQUEST_READ_EXTERNAL_STORAGE
 import com.dianakarenms.utils.RealPathUtil

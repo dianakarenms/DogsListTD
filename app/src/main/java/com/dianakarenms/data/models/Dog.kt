@@ -1,4 +1,4 @@
-package com.dianakarenms.models
+package com.dianakarenms.data.models
 
 import java.io.Serializable
 
